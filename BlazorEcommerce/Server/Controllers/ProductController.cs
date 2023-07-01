@@ -37,7 +37,7 @@ namespace BlazorEcommerce.Server.Controllers
         [HttpGet]
         public async Task<ActionResult> GetProduct()
         {
-            return Ok(Products);
+            return Ok(Products);//zaid
         }
     }
 }
