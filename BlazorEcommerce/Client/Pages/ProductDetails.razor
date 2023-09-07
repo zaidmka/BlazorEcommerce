@@ -3,7 +3,7 @@
 
 @if(product == null)
 {
-    <span>Loading Product ..!..</span>
+    <span>@message</span>
 }
 else
 {
@@ -11,7 +11,7 @@ else
 
     <div class="media">
         <div class="media-img-wrapper mr-2">  
-            <img class="media-body" src="@product.ImageUrl" alt="@product.Title"/>
+            <img class="media-img" src="@product.ImageUrl" alt="@product.Title"/>
         </div>
         <div class="media-body">
             <h2 class="mb-0">@product.Title</h2>
@@ -22,12 +22,22 @@ else
 }
 @code {
     private Product? product = null;
+    private string message = string.Empty;
 
     [Parameter]
     public int Id { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
-        product = ProductService.Products.Find(p => p.Id == Id);    
+        message = "Loading Product ....";
+        var result = await ProductService.GetProduct(Id);
+        if (!result.Success)
+        {
+            message = result.Message;
+        }
+        else
+        {
+            product = result.Data;
+        }
     }
 }
