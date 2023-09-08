@@ -9,6 +9,10 @@
     max-height: 500px;
     text-align:center;
 }
+
+.orginal-price {
+    text-decoration: line-through;
+}
 @media(max-width: 1023.89px){
     .media {
         flex-direction: column;
