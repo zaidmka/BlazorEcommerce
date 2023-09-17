@@ -25,7 +25,7 @@ namespace BlazorEcommerce.Server.Services.AuthService
             user.PasswordSalt = passwordSalt;
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return new ServiceResponse<int> { Success=true,Message="OKAY", Data=user.Id };
+            return new ServiceResponse<int> { Success=true,Message="حبيبي ابو حسين انه خادمكم الصغير, بس انته عندك نقص بشخصيتك", Data=user.Id };
 
             
         }
