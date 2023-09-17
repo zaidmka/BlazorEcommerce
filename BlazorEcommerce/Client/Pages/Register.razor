@@ -1,8 +1,12 @@
 ﻿@page "/register"
+@inject IAuthService AuthService
+
 <PageTitle>Register</PageTitle>
+
 <h3>Register</h3>
 
-<EditForm Model="user" OnInvalidSubmit="HandleRegistration">
+
+<EditForm Model="user" OnValidSubmit="HandleRegistration">
     <DataAnnotationsValidator/>
     <div class="mb-3">
         <label for="email">Email</label>
@@ -22,14 +26,19 @@
 
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
-    
+    <div class="text-danger">
+        <span>@errorMessage</span>
+    </div>
 </EditForm>
 
 @code {
     UserRegister user = new UserRegister();
+    string errorMessage = string.Empty;
 
     void HandleRegistration()
     {
         Console.WriteLine($"Register User with the Email: {user.Email}.");
+
+        
     }
 }
