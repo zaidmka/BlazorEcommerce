@@ -25,6 +25,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 
+
 var app = builder.Build();
 app.UseSwaggerUI();
 
