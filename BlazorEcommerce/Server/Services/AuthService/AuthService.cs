@@ -18,7 +18,7 @@ namespace BlazorEcommerce.Server.Services.AuthService
             {
                 return new ServiceResponse<int> { 
                     Success = false,
-                    Message="User already exists." };
+                    Message="اويليي يا ربااااااااااااااااااااك , ولك اليوزر موجود!" };
             }
             CreatePasswordHash(password,out byte[] passwordHash,out byte[] passwordSalt);
             user.PasswordHash = passwordHash;
