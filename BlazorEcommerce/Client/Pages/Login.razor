@@ -1,4 +1,5 @@
 ﻿@page "/login"
+@using Microsoft.AspNetCore.WebUtilities;
 @inject IAuthService AuthService
 @inject ILocalStorageService LocalStorage
 @inject NavigationManager NavigationManager
@@ -28,6 +29,16 @@
 </div>
 @code {
     private UserLogin user = new UserLogin();
+    private string returnUrl = string.Empty;
+    protected override void OnInitialized()
+    {
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        if(QueryHelpers.ParseQuery(uri.Query).TryGetValue("returnUrl",out var url))
+        {
+            returnUrl = url;
+        }
+    }
+
     private async Task HandleLogin()
     {
         Console.WriteLine("Log me in! :)");
@@ -38,7 +49,7 @@
             errorMessage = string.Empty;
             await LocalStorage.SetItemAsync("authToken", result.Data);
             await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            NavigationManager.NavigateTo("");
+            NavigationManager.NavigateTo(returnUrl);
         }
         else
         {
