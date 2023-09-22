@@ -18,6 +18,12 @@ namespace BlazorEcommerce.Client.Service.OrderService
             _navigationManager = navigationManager;
         }
 
+        public async Task<OrderDetailsResponse> GetOrderDetails(int orderId)
+        {
+            var result = await _httpClient.GetFromJsonAsync<ServiceResponse<OrderDetailsResponse>>($"api/order/{orderId}");
+            return result.Data;
+        }
+
         public async Task<List<OrderOverViewResponse>> GetOrders()
         {
             var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<OrderOverViewResponse>>>("api/order");
