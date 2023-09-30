@@ -1,5 +1,6 @@
 ﻿using BlazorEcommerce.Server.Data;
 using BlazorEcommerce.Server.Services.ProductService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,5 +63,32 @@ namespace BlazorEcommerce.Server.Controllers
             var result = await _productServicecs.GetFeaturedProducts();
             return Ok(result);
         }
-    } 
+
+        [HttpGet("admin") ,Authorize(Roles ="Admin")]
+                public async Task<ActionResult<ServiceResponse<List<Product>>>> GetAdminProducts()
+        {
+            var result = await _productServicecs.GetAdminProducts();
+            return Ok(result);
+        }
+        [HttpPost, Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ServiceResponse<Product>>> CreateProduct(Product product)
+        {
+            var result = await _productServicecs.CreateProduct(product);
+            return Ok(result);
+        }
+        [HttpPut, Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ServiceResponse<Product>>> UpdateProduct(Product product)
+        {
+            var result = await _productServicecs.UpdateProduct(product);
+            return Ok(result);
+        }
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ServiceResponse<bool>>> DeleteProduct(int id)
+        {
+            var result = await _productServicecs.DeleteProduct(id);
+            return Ok(result);
+        }
+
+
+    }
 }

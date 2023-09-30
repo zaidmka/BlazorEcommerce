@@ -7,6 +7,7 @@ global using BlazorEcommerce.Server.Services.OrderService;
 global using BlazorEcommerce.Server.Services.PaymentService;
 global using BlazorEcommerce.Server.Services.CartService;
 global using BlazorEcommerce.Server.Services.AddressService;
+global using BlazorEcommerce.Server.Services.ProductTypeService;
 
 using BlazorEcommerce.Server.Data;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -30,6 +31,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOrderService,OrderService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
+
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
