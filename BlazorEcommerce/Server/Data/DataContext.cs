@@ -9,7 +9,7 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CartItem>()
-    .HasKey(ci => new { ci.ProductId, ci.ProductTypeId,ci.UserId });
+                .HasKey(ci => new { ci.ProductId, ci.ProductTypeId,ci.UserId });
             modelBuilder.Entity<ProductVariant>()
                 .HasKey(p => new { p.ProductId, p.ProductTypeId });
             modelBuilder.Entity<OrderItem>()
@@ -267,6 +267,7 @@
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Image> Images { get; set; }
 
 
 

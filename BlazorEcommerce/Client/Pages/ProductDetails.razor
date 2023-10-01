@@ -12,18 +12,36 @@ else
 
     <div class="media">
         <div class="media-img-wrapper mr-2">
-            <img class="media-img" src="@product.ImageUrl" alt="@product.Title" />
+
+            @if (!string.IsNullOrEmpty(product.ImageUrl))
+            {
+                <img class="media-img" src="@product.ImageUrl" alt="@product.Title" />
+            }
+            else
+            {
+                <MudCarousel Class="mud-width-full"
+                             ItemsSource="@product.Images"
+                             Style="height:200px;" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle">
+                    <ItemTemplate>
+                        <MudImage Src="@context.Data"></MudImage>
+                    </ItemTemplate>
+
+                </MudCarousel>
+                <MudSwitch @bind-Checked="@enableSwipeGesture" Color="Color.Primary">Enable Swap Gesture</MudSwitch>
+                <MudSwitch @bind-Checked="@autocycle" Color="Color.Primary">Auto Cycle (Default: 5 secs)</MudSwitch>
+            }
         </div>
+
         <div class="media-body">
             <h2 class="mb-0">@product.Title</h2>
             <p>@product.Description</p>
-            @if(product.Variants != null && product.Variants.Count > 1)
+            @if (product.Variants != null && product.Variants.Count > 1)
             {
                 <div class="mb-3">
                     <select class="form-select" @bind="currentTypeId">
                         @foreach (var variant in product.Variants)
                         {
-                            <option value = "@variant.ProductTypeId"> 
+                            <option value="@variant.ProductTypeId">
                                 @variant.ProductType.Name
                             </option>
                         }
@@ -92,6 +110,11 @@ else
                 ProductId = productVariant.ProductId,
                 ProductTypeId = productVariant.ProductTypeId
             };
-            await CartService.AddToCart(CartItem);
+        await CartService.AddToCart(CartItem);
     }
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
 }
